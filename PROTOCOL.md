@@ -5,7 +5,7 @@
 - [Table of Contents](#table-of-contents)
 - [Standard Transports](#standard-transports)
 - [Standard Interchange](#standard-interchange)
-- [Forbidden Actions](#forbidden-actions)
+- [Forbidden/Diagnostic Actions](#forbiddendiagnostic-actions)
 - [Message Types and Protocols](#message-types-and-protocols)
   - [Trust Exchange](#trust-exchange)
   - [Information Disclosure](#information-disclosure)
@@ -65,7 +65,7 @@ If a transport does not include a subject line, the identification string may al
 
 Finally, the sender's signature of the ciphertext should be appended to the ciphertext, separated by ASCII LF.
 
-## Forbidden Actions
+## Forbidden/Diagnostic Actions
 
 Certain actions are forbidden for security or reliability reasons and will raise an alarm.
 
@@ -79,7 +79,6 @@ Certain actions are forbidden for security or reliability reasons and will raise
 * Reporting a lower maximum supported data version than has previously been reported.
   * This could potentially allow for downgrade attacks in the future.
   * This may occur if an Information Exchange is lost in transit, so it's not guaranteed to be an attack.
-  * This is allowed for revocation messages.
   * A warning should be displayed.
 * Sending a message with unexpected counters.
   * When you receive a message with incorrect counters, its meaning depends on how the counters deviate from your expectations.
