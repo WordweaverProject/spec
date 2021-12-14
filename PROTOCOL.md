@@ -4,6 +4,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Standard Transports](#standard-transports)
+- [Optional Transports](#optional-transports)
 - [Standard Interchange](#standard-interchange)
 - [Forbidden/Diagnostic Actions](#forbiddendiagnostic-actions)
 - [Message Types and Protocols](#message-types-and-protocols)
@@ -26,6 +27,17 @@ The Standard Transports must be supported by every Wordweaver client. They are u
     * `user` - The username with which to log in to the mailserver. For example, "user"
     * `password` - The password with which to log in to the mailserver. For example, "hunter2"
     * `ssl` - Whether the server supports SSL. For example, "true"
+
+## Optional Transports
+
+Optional transports are not required, but may be useful to include.
+
+* `fs` - The filesystem
+  * This could be used to easily create an internal Wordweaver server by using a networked filesystem, or it could be used to send your messages by mail on a USB drive.
+  * Public:
+    * `name` - The name of the filesystem transport. Filesystem transports with different names will be treated as different transports.
+  * Non-public:
+    * `mountpoint` - The mount point of the filesystem transport. The mountpoint must directly contain a file named `.wordweaver-fs-allow` for any further reads or writes to be made to the filesystem.
 
 ## Standard Interchange
 
@@ -67,7 +79,7 @@ Finally, the sender's signature of the ciphertext should be appended to the ciph
 
 ## Forbidden/Diagnostic Actions
 
-Certain actions are forbidden for security or reliability reasons and will raise an alarm.
+Certain actions are forbidden for security reasons and will raise an alarm. Some actions don't indicate malicious activity, but can expose issues.
 
 * Using the same key from multiple clients.
   * This looks the same as an attacker impersonating you using a compromised key, so you should use different keys for each of your clients.
