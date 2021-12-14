@@ -22,3 +22,7 @@ Additionally, Wordweaver is tentatively targeting the following platforms:
   * Rust Crate (`no_std` is unlikely but possible)
   * JavaScript bindings (via WASM)
   * C(++) bindings
+
+## Protocol Draft
+
+A draft of the Wordweaver protocol specification can be found in the [PROTOCOL](PROTOCOL.md) file.
