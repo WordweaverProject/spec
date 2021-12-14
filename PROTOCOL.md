@@ -1,4 +1,4 @@
-*This is a draft and should not be used to build a client implementation yet.*
+*This is a high-level draft and should not be used to build a client implementation yet.*
 
 ## Table of Contents
 
@@ -36,7 +36,6 @@ All messages should be serialized in the [CBOR](https://cbor.io/), and should ha
 * `v` - The data version number.
 * `t` - An integer corresponding to a message type present in the associated data version.
 * `s` - The hash of the public key of the sender.
-* `sig` - The sender's signature of the serialized contents of `d`
 * `u` - A decimal UUID (128-bit integer) which is unique for every conversation.
 * `no` - A counter which increments for every message sent by other clients in this conversation.
 * `ns` - A counter which increments for every message sent by this client in this conversation.
@@ -63,6 +62,8 @@ Example string:
 Clients should also check the hash using several previous days. The number of days to check is left up to the implementor, but it should be at least one to prevent messages sent near UTC midnight from being dropped. The best number depends on how often the target device is connected to the internet. If the transport provides timestamp information, it may be best to use that to inform which dates are checked first.
 
 If a transport does not include a subject line, the identification string may also be prepended to the ciphertext, separated by ASCII LF.
+
+Finally, the sender's signature of the ciphertext should be appended to the ciphertext, separated by ASCII LF.
 
 ## Forbidden Actions
 
@@ -135,4 +136,5 @@ Certain actions are forbidden for security or reliability reasons and will raise
 * A Resend Request must be sent on at least one supported transport shared with the recipient.
 * A Resend Request asks the recipient to send a range of messages again.
 * Messages are identified using the self counter.
+* If a resend request is sent for a message which has been discarded, no response should be sent.
 * A Resend Request is message type 4.
