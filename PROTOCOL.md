@@ -104,7 +104,6 @@ Certain actions are forbidden for security or reliability reasons and will raise
       * Extended transports may also be used, but only if you are absolutely certain both parties have a compatible version of the transport.
     * `name` - A human-readable name.
     * `data_ver` - The maximum supported interchange version of the client.
-    * `sig` - If the exchange used a trusted party, it must also be signed by the trusted party.
   * After a Trust Exchange, an Information Disclosure should occur as soon as possible.
 * A digital Trust Exchange is message type 0.
 * A digital Trust Exchange is initiated by the middleman sending the information they know about each party to the other.
