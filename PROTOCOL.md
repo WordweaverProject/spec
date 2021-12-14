@@ -31,7 +31,7 @@ The Standard Interchange must be supported by every Wordweaver client. It is use
 
 All messages should be serialized in the [CBOR](https://cbor.io/), and should have the following top-level keys:
 
-* `v` - A [semver](https://semver.org) string specifying the data version.
+* `v` - The data version number.
 * `t` - An integer corresponding to a message type present in the associated data version.
 * `s` - The hash of the public key of the sender.
 * `sig` - The sender's signature of the serialized contents of `d`
