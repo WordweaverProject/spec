@@ -38,7 +38,6 @@ All messages should be serialized in the [CBOR](https://cbor.io/), and should ha
 * `u` - A decimal UUID (128-bit integer) which is unique for every conversation.
 * `no` - A counter which increments for every message sent by other clients in this conversation.
 * `ns` - A counter which increments for every message sent by this client in this conversation.
-* `ng` - A counter which increments for every message sent by this client in any conversation.
 * `d` - Binary CBOR data compatible with the specified version.
 
 All messages should be encrypted using the recipient's private key and encoded such that the transport can gracefully handle them.
@@ -84,10 +83,8 @@ Certain actions are forbidden for security or reliability reasons and will raise
   * The following are the meanings of various incorrect counters:
     * The self counter is too high: You've missed a message from the sender in this conversation.
     * The others counter is too high: You've missed a message from someone else in this conversation.
-    * The global counter is too high: You've missed a message from the sender, but if the self counter is correct it's not in this conversation.
     * The self counter is too low: The sender is being impersonated in this conversation.
     * The others counter is too low: The sender missed a message from someone.
-    * The global counter is too low: The sender is being impersonated, but if the self counter isn't low it's uncertain whether they're being impersonated in this conversation.
 * Sending a message with an invalid signature.
   * This only occurs when a message is forged.
   * A serious alarm should be raised.
