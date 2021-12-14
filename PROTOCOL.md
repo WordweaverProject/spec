@@ -6,10 +6,12 @@
 - [Standard Transports](#standard-transports)
 - [Standard Interchange](#standard-interchange)
 - [Forbidden Actions](#forbidden-actions)
-- [Protocols](#protocols)
+- [Message Types and Protocols](#message-types-and-protocols)
   - [Trust Exchange](#trust-exchange)
   - [Information Disclosure](#information-disclosure)
   - [Conversation](#conversation)
+  - [Language](#language)
+  - [Resend Request](#resend-request)
 
 ## Standard Transports
 
@@ -91,11 +93,11 @@ Certain actions are forbidden for security or reliability reasons and will raise
 * Sending a message to a conversation of which you are not a member.
   * This should be silently ignored if the signature is valid, otherwise raise an alarm.
 
-## Protocols
+## Message Types and Protocols
 
 ### Trust Exchange
 
-* A Wordweaver trust exchange is an asynchronous one-shot bidirectional protocol which must be performed over a trusted channel.
+* A Trust Exchange must be performed over a trusted channel.
   * A trusted channel can be firsthand, by communicating physically, or digital, via a middleman.
   * The information which is disclosed by both parties must be as follows:
     * `pubkey` - A Wordweaver public key (format currently undecided).
@@ -110,13 +112,27 @@ Certain actions are forbidden for security or reliability reasons and will raise
 
 ### Information Disclosure
 
-* An information disclosure occurs when a client has information to share.
-* A Wordweaver information disclosure is an asynchronous n-shot unidirectional protocol which must be sent on all supported transports shared with the recipient.
-* An information disclosure is message type 1.
-* Most properties of an information disclosure are optional. Undefined properties will be assumed to remain the same.
+* An Information Disclosure occurs when a client has information to share.
+* An Information Disclosure must be sent on all supported transports shared with the recipient.
+* An Information Disclosure is message type 1.
+* Most properties of an Information Disclosure are optional. Undefined properties will be assumed to remain the same.
 
 ### Conversation
 
-* A conversation is an asynchronous n-shot n-directional protocol which must be sent on a supported transport shared with the recipient(s).
-* Creating a conversation initiates a digital trust exchange between all parties with the conversation creator as a middleman.
+* A Conversation must be sent on all supported transports shared with the recipient(s).
+* Creating a conversation requires all conversation members to trust one another.
+  * Clients may provide shortcuts to automatically initiate trust exchanges between all members.
 * A Conversation is message type 2.
+
+### Language
+
+* A Language message must be sent on at least one supported transport shared with the recipient(s).
+* A Language message is a length of human-readable text.
+* A Language message is message type 3.
+
+### Resend Request
+
+* A Resend Request must be sent on at least one supported transport shared with the recipient.
+* A Resend Request asks the recipient to send a range of messages again.
+* Messages are identified using the self counter.
+* A Resend Request is message type 4.
